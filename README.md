@@ -6,6 +6,7 @@ A premium, interactive portfolio built with **Next.js**, **Framer Motion**, and 
 
 ## 🚀 Experience the Design
 - **3D Interactive Hero**: Features an interactive robot powered by Spline.
+- **Contact System**: Fully functional contact form integrated with **Resend API**, featuring real-time inline email validation and server actions.
 - **Micro-animations**: Smooth transitions and hover effects using Framer Motion.
 - **Glassmorphism UI**: Modern aesthetic with frosted glass effects and ambient glows.
 - **Mobile Optimized**: Custom stacked-card carousel for projects on mobile devices.

@@ -110,28 +110,6 @@ export function Navbar() {
               </a>
             </li>
           ))}
-          
-          <li
-            className={`ml-4 transition-all duration-500 ${
-              mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-            }`}
-            style={{ transitionDelay: '500ms' }}
-          >
-            <MagneticButton 
-              variant="outline" 
-              size="sm"
-              className="border-primary text-primary hover:bg-primary hover:text-white 
-                transition-all duration-300 
-                shadow-[0_0_15px_rgba(168,85,247,0.2)] hover:shadow-[0_0_25px_rgba(168,85,247,0.4)]
-                flex items-center gap-2"
-              asChild
-            >
-              <a href="/resume.pdf" target="_blank" rel="noopener noreferrer">
-                <Download className="w-4 h-4" />
-                Resume
-              </a>
-            </MagneticButton>
-          </li>
         </ul>
 
         {/* Mobile Menu Button */}
@@ -176,18 +154,6 @@ export function Navbar() {
                   </a>
                 </li>
               ))}
-              <li className="mt-2 p-2 pt-4 border-t border-border/50">
-                <MagneticButton 
-                  variant="outline"
-                  className="w-full border-primary text-primary hover:bg-primary hover:text-white py-6"
-                  asChild
-                >
-                  <a href="/resume.pdf" target="_blank" rel="noopener noreferrer">
-                    <Download className="w-4 h-4 mr-2" />
-                    Resume
-                  </a>
-                </MagneticButton>
-              </li>
             </ul>
           </motion.div>
         )}

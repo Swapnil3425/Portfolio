@@ -187,6 +187,13 @@ export function Contact() {
                 I&apos;m always excited to connect with fellow developers, potential collaborators, 
                 and anyone with a cool project idea. Drop me a message!
               </p>
+              
+              <div className="mt-8 py-4 relative inline-block">
+                <p className="text-2xl md:text-3xl font-bold italic tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-primary to-blue-500 bg-300% animate-gradient px-4">
+                  Get in touch before I write another line of code!
+                </p>
+                <div className="absolute -bottom-1 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent" />
+              </div>
             </AnimatedItem>
           </div>
 
@@ -198,11 +205,11 @@ export function Contact() {
               className={`bg-card/50 backdrop-blur-sm rounded-2xl border p-8 md:p-12 transition-all duration-700
                 ${formHovered ? 'border-primary/30 shadow-[0_0_60px_rgba(168,85,247,0.1)] scale-[1.01]' : 'border-border scale-100'}`}
             >
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-6">
+              <form onSubmit={handleSubmit} className="space-y-8">
+                <div className="grid md:grid-cols-2 gap-8">
                   <div className="group">
                     <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
-                      Name
+                      Name<span className="text-red-500">*</span>
                     </label>
                     <input
                       type="text"
@@ -211,16 +218,16 @@ export function Contact() {
                       disabled={isSending}
                       value={formState.name}
                       onChange={(e) => setFormState({ ...formState, name: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl bg-secondary/50 border border-border
-                        text-foreground placeholder:text-muted-foreground
+                      className="w-full px-4 py-4 rounded-xl bg-secondary/50 border border-border
+                        text-foreground placeholder:text-muted-foreground/50
                         focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20
                         transition-all duration-300 disabled:opacity-50"
-                      placeholder="John Doe"
+                      placeholder="Your name, your fame"
                     />
                   </div>
                   <div className="group">
                     <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
-                      Email
+                      Email<span className="text-red-500">*</span>
                     </label>
                     <div className="relative">
                       <input
@@ -239,13 +246,13 @@ export function Contact() {
                           setFormState({ ...formState, email: e.target.value })
                           if (emailError) setEmailError("")
                         }}
-                        className={`w-full px-4 py-3 rounded-xl bg-secondary/50 border 
-                          text-foreground placeholder:text-muted-foreground
+                        className={`w-full px-4 py-4 rounded-xl bg-secondary/50 border 
+                          text-foreground placeholder:text-muted-foreground/50
                           focus:outline-none focus:ring-2 transition-all duration-300 disabled:opacity-50
                           ${emailError 
                             ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/20' 
                             : 'border-border focus:border-primary focus:ring-primary/20'}`}
-                        placeholder="john@example.com"
+                        placeholder="Where can I reach you back?"
                       />
                       {emailError && (
                         <motion.p 
@@ -262,7 +269,7 @@ export function Contact() {
                 
                 <div>
                   <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">
-                    Message
+                    Message<span className="text-red-500">*</span>
                   </label>
                   <textarea
                     id="message"
@@ -271,11 +278,11 @@ export function Contact() {
                     rows={5}
                     value={formState.message}
                     onChange={(e) => setFormState({ ...formState, message: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl bg-secondary/50 border border-border
-                      text-foreground placeholder:text-muted-foreground resize-none
+                    className="w-full px-4 py-4 rounded-xl bg-secondary/50 border border-border
+                      text-foreground placeholder:text-muted-foreground/50 resize-none
                       focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20
                       transition-all duration-300 disabled:opacity-50"
-                    placeholder="Tell me about your project..."
+                    placeholder="Your words, my inbox."
                   />
                 </div>
 
