@@ -68,14 +68,31 @@ function SocialLink({ href, icon: Icon, label, color }) {
 
 export function Contact() {
   const [formState, setFormState] = useState({ name: "", email: "", message: "" })
+  const [emailError, setEmailError] = useState("")
   const [isSending, setIsSending] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
   const [formHovered, setFormHovered] = useState(false)
   const { toast } = useToast()
 
+  const validateEmail = (email) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!email) return "Email is required"
+    if (!regex.test(email)) return "Please enter a valid email (e.g., name@example.com)"
+    return ""
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
+    
+    // Validate email
+    const error = validateEmail(formState.email)
+    if (error) {
+      setEmailError(error)
+      return
+    }
+
     setIsSending(true)
+    setEmailError("") // Clear error if validation passes
 
     try {
       const formData = new FormData()
@@ -95,11 +112,16 @@ export function Contact() {
         })
         setFormState({ name: "", email: "", message: "" })
       } else {
-        toast({
-          title: "Error",
-          description: result.error || "Something went wrong. Please try again.",
-          variant: "destructive",
-        })
+        // If Resend specifically complains about the email address format
+        if (result.error?.toLowerCase().includes("email") || result.error?.toLowerCase().includes("reply_to")) {
+           setEmailError(result.error)
+        } else {
+          toast({
+            title: "Error",
+            description: result.error || "Something went wrong. Please try again.",
+            variant: "destructive",
+          })
+        }
       }
     } catch (error) {
       toast({
@@ -200,19 +222,41 @@ export function Contact() {
                     <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
                       Email
                     </label>
-                    <input
-                      type="email"
-                      id="email"
-                      required
-                      disabled={isSending}
-                      value={formState.email}
-                      onChange={(e) => setFormState({ ...formState, email: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl bg-secondary/50 border border-border
-                        text-foreground placeholder:text-muted-foreground
-                        focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20
-                        transition-all duration-300 disabled:opacity-50"
-                      placeholder="john@example.com"
-                    />
+                    <div className="relative">
+                      <input
+                        type="email"
+                        id="email"
+                        required
+                        disabled={isSending}
+                        value={formState.email}
+                        onBlur={() => {
+                          if (formState.email) {
+                            const error = validateEmail(formState.email)
+                            setEmailError(error)
+                          }
+                        }}
+                        onChange={(e) => {
+                          setFormState({ ...formState, email: e.target.value })
+                          if (emailError) setEmailError("")
+                        }}
+                        className={`w-full px-4 py-3 rounded-xl bg-secondary/50 border 
+                          text-foreground placeholder:text-muted-foreground
+                          focus:outline-none focus:ring-2 transition-all duration-300 disabled:opacity-50
+                          ${emailError 
+                            ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/20' 
+                            : 'border-border focus:border-primary focus:ring-primary/20'}`}
+                        placeholder="john@example.com"
+                      />
+                      {emailError && (
+                        <motion.p 
+                          initial={{ opacity: 0, y: -10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          className="absolute -bottom-6 left-0 text-[10px] md:text-xs font-medium text-red-500 font-mono"
+                        >
+                          {emailError}
+                        </motion.p>
+                      )}
+                    </div>
                   </div>
                 </div>
                 
