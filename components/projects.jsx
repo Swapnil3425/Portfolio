@@ -110,7 +110,7 @@ function MobileCarousel() {
       onWheel={onWheel}
     >
       {/* Card stack wrapper */}
-      <div className="relative w-full" style={{ minHeight: 360, paddingBottom: 28 }}>
+      <div className="relative w-full" style={{ minHeight: 460, paddingBottom: 20 }}>
         {projects.map((project, index) => {
           const { scale, y, rotate, opacity, zIndex, dimmed } = getStackProps(index)
           return (

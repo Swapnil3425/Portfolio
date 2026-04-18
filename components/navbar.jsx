@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import { Menu, X, Download } from "lucide-react"
 import Image from "next/image"
+import { motion, AnimatePresence } from "framer-motion"
 import { MagneticButton } from "./magnetic-button"
 
 const navItems = [
@@ -36,26 +37,30 @@ export function Navbar() {
     }
 
     window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
+    }
   }, [])
 
   return (
     <header 
       className={`
-        fixed top-0 left-0 right-0 z-50 
+        fixed top-0 left-0 right-0 z-[100] 
         transition-all duration-500
-        ${isScrolled 
-          ? "bg-background/70 backdrop-blur-xl border-b border-border/50 shadow-[0_4px_30px_rgba(0,0,0,0.3)]" 
+        ${(isScrolled || isMobileMenuOpen) 
+          ? "bg-background/90 backdrop-blur-2xl border-b border-border/50 shadow-[0_8px_32px_rgba(0,0,0,0.5)]" 
           : "bg-transparent"
         }
         ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}
       `}
     >
-      <nav className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 h-20 flex items-center justify-between">
+      <nav className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 h-20 flex items-center justify-between relative z-[110]">
         {/* Logo */}
         <a 
           href="#" 
           className="group relative text-xl font-bold text-foreground hover:text-primary transition-all duration-300"
+          onClick={() => setIsMobileMenuOpen(false)}
         >
           <span className="relative z-10 flex items-center gap-2">
             <span className="text-primary font-mono">{"<"}</span>
@@ -131,79 +136,62 @@ export function Navbar() {
 
         {/* Mobile Menu Button */}
         <button 
-          className="md:hidden relative w-10 h-10 flex items-center justify-center
+          className="md:hidden relative w-12 h-12 flex items-center justify-center
             text-foreground hover:text-primary transition-all duration-300
-            rounded-lg hover:bg-primary/10"
+            rounded-xl hover:bg-primary/10 border border-transparent hover:border-primary/20"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
         >
           <div className="relative w-6 h-6">
-            <X className={`w-6 h-6 absolute transition-all duration-300 ${
-              isMobileMenuOpen ? 'opacity-100 rotate-0' : 'opacity-0 rotate-90'
+            <X className={`w-6 h-6 absolute transition-all duration-500 ${
+              isMobileMenuOpen ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 rotate-90 scale-0'
             }`} />
-            <Menu className={`w-6 h-6 absolute transition-all duration-300 ${
-              isMobileMenuOpen ? 'opacity-0 -rotate-90' : 'opacity-100 rotate-0'
+            <Menu className={`w-6 h-6 absolute transition-all duration-500 ${
+              isMobileMenuOpen ? 'opacity-0 -rotate-90 scale-0' : 'opacity-100 rotate-0 scale-100'
             }`} />
           </div>
         </button>
       </nav>
 
-      {/* Mobile Menu */}
-      <div 
-        className={`
-          md:hidden fixed inset-0 top-20 
-          bg-background/95 backdrop-blur-xl
-          transition-all duration-500 ease-out
-          ${isMobileMenuOpen 
-            ? "opacity-100 visible" 
-            : "opacity-0 invisible pointer-events-none"
-          }
-        `}
-      >
-        {/* Decorative gradient */}
-        <div className="absolute top-0 right-0 w-64 h-64 bg-primary/20 rounded-full blur-[100px] pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-48 h-48 bg-pink-500/20 rounded-full blur-[80px] pointer-events-none" />
-
-        <ul className="flex flex-col items-center justify-center h-full gap-8 relative z-10">
-          {navItems.map((item, index) => (
-            <li 
-              key={item.href}
-              className={`transition-all duration-500 ${
-                isMobileMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-              }`}
-              style={{ transitionDelay: isMobileMenuOpen ? `${index * 100}ms` : '0ms' }}
-            >
-              <a 
-                href={item.href}
-                className="text-2xl font-medium text-foreground hover:text-primary transition-all duration-300"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                <span className="text-primary font-mono text-sm">0{index + 1}.</span>{" "}
-                {item.label}
-              </a>
-            </li>
-          ))}
-          <li
-            className={`transition-all duration-500 ${
-              isMobileMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-            }`}
-            style={{ transitionDelay: isMobileMenuOpen ? '400ms' : '0ms' }}
+      {/* Mobile Dropdown Menu */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div 
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="md:hidden absolute top-20 left-4 right-4 z-40 bg-card/98 backdrop-blur-xl border border-border/50 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden"
           >
-            <MagneticButton 
-              variant="outline"
-              className="border-primary text-primary hover:bg-primary hover:text-white 
-                transition-all duration-300 mt-4 text-lg px-8 py-4
-                shadow-[0_0_20px_rgba(168,85,247,0.3)]"
-              asChild
-            >
-              <a href="/resume.pdf" target="_blank" rel="noopener noreferrer">
-                <Download className="w-5 h-5 mr-2" />
-                Resume
-              </a>
-            </MagneticButton>
-          </li>
-        </ul>
-      </div>
+            <ul className="flex flex-col p-4 gap-2">
+              {navItems.map((item, index) => (
+                <li key={item.href}>
+                  <a 
+                    href={item.href}
+                    className="flex items-center gap-3 p-4 rounded-xl hover:bg-primary/10 text-foreground transition-all duration-300"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    <span className="text-primary font-mono text-xs opacity-60">0{index + 1}.</span>
+                    <span className="font-medium">{item.label}</span>
+                  </a>
+                </li>
+              ))}
+              <li className="mt-2 p-2 pt-4 border-t border-border/50">
+                <MagneticButton 
+                  variant="outline"
+                  className="w-full border-primary text-primary hover:bg-primary hover:text-white py-6"
+                  asChild
+                >
+                  <a href="/resume.pdf" target="_blank" rel="noopener noreferrer">
+                    <Download className="w-4 h-4 mr-2" />
+                    Resume
+                  </a>
+                </MagneticButton>
+              </li>
+            </ul>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   )
 }
