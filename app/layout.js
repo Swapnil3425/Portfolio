@@ -27,6 +27,7 @@ import { LoadingProvider } from "@/components/LoadingProvider"
 import { Navbar } from "@/components/navbar"
 import { ParticleField } from "@/components/particle-field"
 import GlobalFixed from "@/components/GlobalFixed"
+import { CustomCursor } from "@/components/cursor"
 
 export default function RootLayout({ children }) {
   return (
@@ -41,6 +42,7 @@ export default function RootLayout({ children }) {
           {/* Fixed global elements — completely outside any layout wrappers so they stay truly fixed to the viewport */}
           <ParticleField />
           <GlobalFixed />
+          <CustomCursor />
           <Navbar />
 
           <LoadingProvider>

@@ -183,13 +183,13 @@ export function Projects() {
   return (
     <section
       id="projects"
-      className="py-32 px-6 md:px-12 lg:px-24 relative overflow-hidden"
+      className="py-32 relative overflow-hidden"
     >
       {/* Background ambient glows */}
       <div className="absolute top-1/4 -right-40 w-80 h-80 bg-primary/10 rounded-full blur-[100px] pointer-events-none" />
       <div className="absolute bottom-1/4 -left-40 w-60 h-60 bg-pink-500/10 rounded-full blur-[80px] pointer-events-none" />
 
-      <div className="max-w-6xl mx-auto relative z-10">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 relative z-10">
         {/* Section header */}
         <AnimatedItem className="flex items-center gap-4 mb-16">
           <span className="text-primary font-mono text-sm">02.</span>

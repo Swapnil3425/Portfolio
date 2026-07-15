@@ -20,24 +20,12 @@ export function Hero() {
   return (
     <section 
       ref={heroRef}
-      className="min-h-screen flex flex-col justify-center px-6 md:px-12 lg:px-24 pt-16 pb-24 md:pb-12 relative overflow-hidden"
+      className="min-h-screen flex flex-col justify-center pt-16 pb-24 md:pb-12 relative overflow-hidden"
     >
 
 
       {/* Content Container */}
-      <div className="w-full max-w-7xl mx-auto relative z-10 flex flex-col gap-8">
-        {/* Greeting with icon - Now at the very top */}
-        <AnimatedItem className="flex items-center gap-2 mb-2 lg:mb-4">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full
-            border border-primary/30 bg-primary/5 backdrop-blur-sm
-            font-mono text-xs text-primary tracking-widest uppercase
-            shadow-[0_0_12px_rgba(168,85,247,0.15)]">
-            <span className="text-pink-400 font-bold">&lt;</span>
-            Welcome to my portfolio
-            <span className="text-pink-400 font-bold">/&gt;</span>
-          </span>
-        </AnimatedItem>
-
+      <div className="w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-24 relative z-10">
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center w-full">
           {/* Text Content Column */}
           <motion.div
@@ -55,14 +43,22 @@ export function Hero() {
               }
             }}
           >
-            {/* Main title with glitch effect */}
+            {/* Badge — lives inside the text column so it flows naturally above the h1 */}
+            <AnimatedItem className="flex items-center gap-2 mb-6">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full
+                border border-primary/30 bg-primary/5 backdrop-blur-sm
+                font-mono text-xs text-primary tracking-widest uppercase
+                shadow-[0_0_12px_rgba(168,85,247,0.15)]">
+                <span className="text-pink-400 font-bold">&lt;</span>
+                Welcome to my portfolio
+                <span className="text-pink-400 font-bold">/&gt;</span>
+              </span>
+            </AnimatedItem>
+
             <AnimatedItem>
-              <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground mb-4 leading-[1.1]">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold text-foreground mb-4 leading-[1.1]">
                 <span className="block">{"I'm"}</span>
-                <GlitchText 
-                  text="Swapnil Gandhale" 
-                  className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-purple-400 to-pink-500"
-                />
+                <GlitchText text="Swapnil Gandhale" />
               </h1>
             </AnimatedItem>
             

@@ -5,11 +5,11 @@ import { AnimatedItem } from "./AnimatedSection"
 
 export function Footer() {
   return (
-    <footer className="py-8 px-6 md:px-12 lg:px-24 border-t border-border/50 relative overflow-hidden">
+    <footer className="py-8 border-t border-border/50 relative overflow-hidden">
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-t from-primary/5 to-transparent pointer-events-none" />
       
-      <div className="max-w-6xl mx-auto relative z-10">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 relative z-10">
         <AnimatedItem className="flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-muted-foreground text-sm flex items-center gap-2">
             Built with{" "}
@@ -21,7 +21,7 @@ export function Footer() {
           </p>
           
           <p className="text-muted-foreground/60 text-sm font-mono">
-            &copy; {new Date().getFullYear()} All rights reserved.
+            &copy; 2025 All rights reserved.
           </p>
         </AnimatedItem>
       </div>

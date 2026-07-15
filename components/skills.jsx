@@ -92,7 +92,7 @@ export function Skills() {
   return (
     <section 
       id="skills" 
-      className="py-32 px-6 md:px-12 lg:px-24 relative overflow-hidden"
+      className="py-32 relative overflow-hidden"
     >
       {/* Background decorations */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-[150px] pointer-events-none" />
@@ -107,7 +107,7 @@ export function Skills() {
         }}
       />
 
-      <div className="max-w-6xl mx-auto relative z-10">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 relative z-10">
         <motion.div
            initial="initial"
            whileInView="animate"

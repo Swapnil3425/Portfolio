@@ -143,7 +143,7 @@ export function Contact() {
   return (
     <section 
       id="contact" 
-      className="py-32 px-6 md:px-12 lg:px-24 relative overflow-hidden"
+      className="py-32 relative overflow-hidden"
     >
       {/* Background effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -152,8 +152,9 @@ export function Contact() {
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-pink-500/10 rounded-full blur-[120px]" />
       </div>
 
-      <div className="max-w-4xl mx-auto relative z-10">
-        <motion.div
+      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 relative z-10">
+        <div className="max-w-4xl mx-auto">
+          <motion.div
            initial="initial"
            whileInView="animate"
            viewport={{ once: true }}
@@ -355,7 +356,7 @@ export function Contact() {
           </div>
         </motion.div>
       </div>
-    </section>
-  )
+    </div>
+  </section>
+)
 }
-

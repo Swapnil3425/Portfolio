@@ -133,3 +133,9 @@
     scroll-margin-top: 80px;
   }
 }
+
+/* Shimmer sweep animation for the hero name */
+@keyframes shimmer-sweep {
+  from { background-position: 100% center; }
+  to   { background-position: 0% center; }
+}
