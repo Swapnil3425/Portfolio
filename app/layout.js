@@ -24,6 +24,9 @@ export const metadata = {
 }
 
 import { LoadingProvider } from "@/components/LoadingProvider"
+import { Navbar } from "@/components/navbar"
+import { ParticleField } from "@/components/particle-field"
+import GlobalFixed from "@/components/GlobalFixed"
 
 export default function RootLayout({ children }) {
   return (
@@ -35,6 +38,11 @@ export default function RootLayout({ children }) {
           enableSystem
           disableTransitionOnChange
         >
+          {/* Fixed global elements — completely outside any layout wrappers so they stay truly fixed to the viewport */}
+          <ParticleField />
+          <GlobalFixed />
+          <Navbar />
+
           <LoadingProvider>
             {children}
             <Toaster />

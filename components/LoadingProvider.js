@@ -22,18 +22,18 @@ export function LoadingProvider({ children }) {
     // 1. Check if we are still loading (prevent re-triggering)
     if (!isLoading) return
 
-    // 2. Simulate natural "Data Loading" with snappier delays (400ms - 900ms)
-    // Removed the 300ms threshold to show loader instantly as requested
-    const randomDelay = Math.floor(Math.random() * 500) + 400
+    // 2. Simulate natural "Data Loading" that lasts a bit longer (1800ms - 2200ms)
+    // This allows the percentage loader to climb smoothly and feel premium
+    const randomDelay = Math.floor(Math.random() * 400) + 1800
     
     const loadData = setTimeout(() => {
+      // Flip isLoading first — content in page.js starts mounting immediately
       setIsComplete(true)
-      
-      // Phase 3: Switch from Loader to Skeletons then Content
-      setTimeout(() => {
-        setIsLoading(false)
-        setShowLoader(false)
-      }, 300)
+      setIsLoading(false)
+
+      // Dismiss the loader after 400ms — gives user time to see 100%
+      // before the 0.55s exit animation starts
+      setTimeout(() => setShowLoader(false), 400)
     }, randomDelay)
 
     return () => clearTimeout(loadData)
@@ -42,9 +42,9 @@ export function LoadingProvider({ children }) {
   return (
     <LoadingContext.Provider value={{ isLoading, isComplete }}>
       <Loader isLoading={showLoader} />
-      <div className={`transition-opacity duration-500 ${isLoading ? 'opacity-0' : 'opacity-100'}`}>
-        {children}
-      </div>
+      {/* No opacity wrapper — the loader's opaque bg-background covers content naturally.
+          Its 0.55s AnimatePresence fade-out IS the reveal transition. */}
+      <div>{children}</div>
     </LoadingContext.Provider>
   )
 }

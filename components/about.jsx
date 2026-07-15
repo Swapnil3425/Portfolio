@@ -1,13 +1,12 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
-import { GraduationCap, Cpu, Brain, Layout } from "lucide-react"
-import Image from "next/image"
+import { useState } from "react"
+import { Cpu, Brain, Layout } from "lucide-react"
 import { AnimatedItem } from "./AnimatedSection"
 import { motion } from "framer-motion"
+import { InteractiveRobotSpline } from "@/components/ui/interactive-3d-robot"
 
 const stats = [
-  { label: "Year CSE Student", value: "3rd", icon: GraduationCap },
   { label: "Enthusiast", value: "Tech", icon: Cpu },
   { label: "Solving", value: "Problem", icon: Brain },
   { label: "Development", value: "Web", icon: Layout }
@@ -47,34 +46,11 @@ function StatCard({ stat, index }) {
 }
 
 export function About() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
-  const [isHovering, setIsHovering] = useState(false)
-  const imageRef = useRef(null)
-
-  const handleMouseMove = (e) => {
-    if (!imageRef.current) return
-    const rect = imageRef.current.getBoundingClientRect()
-    
-    // Calculate relative mouse position (-1 to 1)
-    const x = (e.clientX - rect.left - rect.width / 2) / (rect.width / 2)
-    const y = (e.clientY - rect.top - rect.height / 2) / (rect.height / 2)
-    
-    // Clamp to prevent wild rotations. Increased sensitivity to max 22 degrees
-    setMousePosition({
-      x: Math.max(-1, Math.min(1, x)) * 22,
-      y: Math.max(-1, Math.min(1, y)) * 22
-    })
-  }
-
-  const handleMouseLeave = () => {
-    setIsHovering(false)
-    setMousePosition({ x: 0, y: 0 })
-  }
 
   return (
     <section 
       id="about" 
-      className="py-32 px-6 md:px-12 lg:px-24 bg-card/30 relative overflow-hidden"
+      className="py-32 px-6 md:px-12 lg:px-24 relative overflow-hidden"
     >
       {/* Background decoration */}
       <div className="absolute top-1/2 left-0 w-96 h-96 bg-primary/5 rounded-full blur-[120px] pointer-events-none -translate-y-1/2" />
@@ -106,8 +82,28 @@ export function About() {
           </AnimatedItem>
 
           <div className="grid lg:grid-cols-5 gap-12 lg:gap-16 items-center">
-            {/* Text content */}
-            <div className="lg:col-span-3 space-y-6">
+            {/* Robot/Avatar — LEFT column */}
+            <AnimatedItem className="lg:col-span-2 relative group order-2 lg:order-1">
+              <div className="relative flex flex-col items-center -mt-8 lg:-mt-20">
+                {/* Nebula Glow Background */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%] 
+                  bg-[radial-gradient(circle,rgba(168,85,247,0.3)_0%,rgba(168,85,247,0.1)_45%,transparent_70%)] 
+                  blur-[100px] opacity-40 group-hover:opacity-60 transition-opacity duration-1000 pointer-events-none" />
+
+                <div className="relative w-full max-w-[450px] aspect-[4/5] flex items-center justify-center z-10 overflow-hidden rounded-2xl">
+                  {/* Inner div extends 70px below to hide the Spline watermark */}
+                  <div className="absolute inset-x-0 top-0 bottom-[-70px]">
+                    <InteractiveRobotSpline
+                      scene="https://prod.spline.design/PyzDhpQ9E5f1E3MT/scene.splinecode"
+                      className="w-full h-full transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+                    />
+                  </div>
+                </div>
+              </div>
+            </AnimatedItem>
+
+            {/* Text content — RIGHT column */}
+            <div className="lg:col-span-3 space-y-6 order-1 lg:order-2">
               {[
                 "I’m Swapnil, a B.Tech Computer Science student at IIITP, with a strong focus on building scalable and user-centric applications.",
                 "I’ve built full-stack projects using React, Node.js, and MongoDB, along with a strong foundation in Data Structures and Algorithms. I focus on writing maintainable code and building solutions that are both practical and well-designed.",
@@ -138,49 +134,6 @@ export function About() {
                 </div>
               </AnimatedItem>
             </div>
-
-            {/* Image/Avatar */}
-            <AnimatedItem className="lg:col-span-2 relative group">
-              <div className="relative flex flex-col items-center -mt-8 lg:-mt-20">
-                {/* Nebula Glow Background */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%] 
-                  bg-[radial-gradient(circle,rgba(168,85,247,0.3)_0%,rgba(168,85,247,0.1)_45%,transparent_70%)] 
-                  blur-[100px] opacity-40 group-hover:opacity-60 transition-opacity duration-1000 pointer-events-none" />
-
-                <div 
-                  ref={imageRef}
-                  onMouseMove={handleMouseMove}
-                  onMouseEnter={() => setIsHovering(true)}
-                  onMouseLeave={handleMouseLeave}
-                  className="relative w-full max-w-[450px] aspect-square flex items-center justify-center z-10"
-                  style={{
-                    transform: `perspective(1300px) rotateY(${mousePosition.x}deg) rotateX(${-mousePosition.y}deg) scale(${isHovering ? 1.02 : 1}) translateZ(${isHovering ? '10px' : '0px'})`,
-                    transition: isHovering ? 'transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94)' : 'transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
-                  }}
-                >
-                  <Image
-                    src="/sg-3d-emblem.png"
-                    alt="Swapnil Gandhale"
-                    width={500}
-                    height={500}
-                    className={`w-full h-full object-contain relative transition-all duration-700 rounded-full ${
-                      isHovering ? 'drop-shadow-[0_0_40px_rgba(168,85,247,0.5)]' : 'drop-shadow-[0_0_15px_rgba(168,85,247,0.3)]'
-                    }`}
-                    priority
-                  />
-                </div>
-
-                {/* Name Label */}
-                <div className="mt-4 relative transition-all duration-500 group-hover:translate-y-[-5px]">
-                  <h4 className="text-base md:text-lg font-mono tracking-[0.4em] text-muted-foreground uppercase
-                    group-hover:text-primary transition-colors duration-500">
-                    Swapnil Gandhale
-                  </h4>
-                  <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-primary to-transparent mt-2 
-                    scale-x-0 group-hover:scale-x-100 transition-transform duration-700 origin-center" />
-                </div>
-              </div>
-            </AnimatedItem>
           </div>
 
           {/* Stats section */}
@@ -195,7 +148,7 @@ export function About() {
                  }
                }
              }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-20"
+            className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-20"
           >
             {stats.map((stat, index) => (
               <AnimatedItem key={stat.label}>

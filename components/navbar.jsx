@@ -55,7 +55,7 @@ export function Navbar() {
         ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}
       `}
     >
-      <nav className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 h-20 flex items-center justify-between relative z-[110]">
+      <nav className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 h-14 flex items-center justify-between relative z-[110]">
         {/* Logo */}
         <a 
           href="#" 
@@ -139,7 +139,7 @@ export function Navbar() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="md:hidden absolute top-20 left-4 right-4 z-40 bg-card/98 backdrop-blur-xl border border-border/50 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden"
+            className="md:hidden absolute top-14 left-4 right-4 z-40 bg-card/98 backdrop-blur-xl border border-border/50 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden"
           >
             <ul className="flex flex-col p-4 gap-2">
               {navItems.map((item, index) => (

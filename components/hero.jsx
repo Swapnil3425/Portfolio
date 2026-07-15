@@ -1,106 +1,47 @@
 "use client"
 
 import { useEffect, useState, useRef } from "react"
-import { ArrowDown, Github, Linkedin, Mail, Sparkles } from "lucide-react"
+import { Github, Linkedin, Mail } from "lucide-react"
 import { GlitchText } from "./glitch-text"
 import { TypingEffect } from "./typing-effect"
 import { MagneticButton } from "./magnetic-button"
 import { AnimatedItem } from "./AnimatedSection"
 import { motion } from "framer-motion"
-import { InteractiveRobotSpline } from "@/components/ui/interactive-3d-robot"
+import Image from "next/image"
 
 export function Hero() {
   const [mounted, setMounted] = useState(false)
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const heroRef = useRef(null)
 
   useEffect(() => {
     setMounted(true)
-    
-    const handleMouseMove = (e) => {
-      if (heroRef.current) {
-        const rect = heroRef.current.getBoundingClientRect()
-        setMousePosition({
-          x: (e.clientX - rect.left) / rect.width,
-          y: (e.clientY - rect.top) / rect.height
-        })
-      }
-    }
-
-    window.addEventListener("mousemove", handleMouseMove)
-    return () => window.removeEventListener("mousemove", handleMouseMove)
   }, [])
 
   return (
     <section 
       ref={heroRef}
-      className="min-h-screen flex flex-col justify-center px-6 md:px-12 lg:px-24 pt-20 pb-32 md:pb-20 relative overflow-hidden"
+      className="min-h-screen flex flex-col justify-center px-6 md:px-12 lg:px-24 pt-16 pb-24 md:pb-12 relative overflow-hidden"
     >
-      {/* Animated gradient mesh background */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div 
-          className="absolute w-[800px] h-[800px] rounded-full blur-[120px] opacity-30"
-          style={{
-            background: 'radial-gradient(circle, rgba(168, 85, 247, 0.4) 0%, rgba(139, 92, 246, 0.2) 50%, transparent 70%)',
-            top: `${20 + mousePosition.y * 10}%`,
-            left: `${50 + mousePosition.x * 10}%`,
-            transform: 'translate(-50%, -50%)',
-            transition: 'top 0.3s ease-out, left 0.3s ease-out'
-          }}
-        />
-        <div 
-          className="absolute w-[600px] h-[600px] rounded-full blur-[100px] opacity-20"
-          style={{
-            background: 'radial-gradient(circle, rgba(236, 72, 153, 0.4) 0%, transparent 70%)',
-            bottom: `${10 + (1 - mousePosition.y) * 15}%`,
-            right: `${10 + (1 - mousePosition.x) * 15}%`,
-            transition: 'bottom 0.5s ease-out, right 0.5s ease-out'
-          }}
-        />
-        <div 
-          className="absolute w-[400px] h-[400px] rounded-full blur-[80px] opacity-25"
-          style={{
-            background: 'radial-gradient(circle, rgba(59, 130, 246, 0.3) 0%, transparent 70%)',
-            top: '60%',
-            left: '20%',
-          }}
-        />
-      </div>
-
 
 
       {/* Content Container */}
       <div className="w-full max-w-7xl mx-auto relative z-10 flex flex-col gap-8">
         {/* Greeting with icon - Now at the very top */}
         <AnimatedItem className="flex items-center gap-2 mb-2 lg:mb-4">
-          <Sparkles className="w-5 h-5 text-primary animate-pulse" />
-          <span className="text-primary font-mono text-sm tracking-widest uppercase">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full
+            border border-primary/30 bg-primary/5 backdrop-blur-sm
+            font-mono text-xs text-primary tracking-widest uppercase
+            shadow-[0_0_12px_rgba(168,85,247,0.15)]">
+            <span className="text-pink-400 font-bold">&lt;</span>
             Welcome to my portfolio
+            <span className="text-pink-400 font-bold">/&gt;</span>
           </span>
         </AnimatedItem>
 
-        <div className="relative w-full">
-          {/* Robot Column - Floating right on ALL screens */}
-          <div className="absolute right-[-10px] sm:right-0 top-[-20px] md:top-[10px] lg:top-[20px] flex items-center justify-center spline-wrapper w-[180px] xs:w-[200px] sm:w-[260px] md:w-[320px] lg:w-[400px] xl:w-[450px] z-0 pointer-events-none lg:pointer-events-auto">
-            
-            {/* The AnimatedItem acts as the visible window. Aspect 4/5 prevents the 3D scene from zooming/cropping. */}
-            <AnimatedItem delay={0.4} className="relative w-full aspect-[4/5] mx-auto pointer-events-auto overflow-hidden rounded-2xl">
-              
-              {/* This inner div extends 70px below the visible window to hide the Spline watermark entirely! */}
-              <div className="absolute inset-x-0 top-0 bottom-[-70px]">
-                <InteractiveRobotSpline 
-                  scene="https://prod.spline.design/PyzDhpQ9E5f1E3MT/scene.splinecode"
-                  className="w-full h-full transition-transform duration-700 ease-out hover:scale-[1.02]"
-                />
-              </div>
-
-            </AnimatedItem>
-
-          </div>
-
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center w-full">
           {/* Text Content Column */}
           <motion.div
-            className="relative z-20 w-full max-w-[100%] sm:max-w-[70%] lg:max-w-3xl"
+            className="relative z-20 w-full lg:col-span-7 order-1"
             initial="initial"
             animate="animate"
             variants={{
@@ -116,7 +57,7 @@ export function Hero() {
           >
             {/* Main title with glitch effect */}
             <AnimatedItem>
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-foreground mb-4 leading-[1.1]">
+              <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground mb-4 leading-[1.1]">
                 <span className="block">{"I'm"}</span>
                 <GlitchText 
                   text="Swapnil Gandhale" 
@@ -127,7 +68,7 @@ export function Hero() {
             
             {/* Animated subtitle with typing effect */}
             <AnimatedItem>
-              <h2 className="text-xl md:text-3xl lg:text-4xl font-bold text-muted-foreground mb-8 leading-tight whitespace-nowrap">
+              <h2 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-bold text-muted-foreground mb-4 leading-tight whitespace-nowrap">
                 I craft{" "}
                 <span className="relative inline-block">
                   <TypingEffect 
@@ -140,7 +81,7 @@ export function Hero() {
             
             {/* Description with animated underline */}
             <AnimatedItem>
-              <p className="text-muted-foreground text-lg md:text-xl max-w-2xl mb-10 leading-relaxed">
+              <p className="text-muted-foreground text-base sm:text-lg lg:text-xl max-w-2xl mb-6 leading-relaxed">
                 A full-stack developer passionate about creating{" "}
                 <span className="relative inline-block text-foreground font-medium group">
                   exceptional
@@ -156,12 +97,12 @@ export function Hero() {
             </AnimatedItem>
             
             {/* CTA Buttons with magnetic effect */}
-            <AnimatedItem className="flex flex-wrap gap-4 mb-14">
+            <AnimatedItem className="flex flex-wrap gap-4 mb-8">
               <MagneticButton 
                 variant="outline"
                 size="lg"
                 className="border-primary text-primary hover:bg-primary hover:text-primary-foreground 
-                  px-8 py-6 text-base font-medium
+                  px-6 py-4 sm:px-8 sm:py-6 text-sm sm:text-base font-medium
                   shadow-[0_0_20px_rgba(168,85,247,0.3)] hover:shadow-[0_0_40px_rgba(168,85,247,0.5)]
                   transition-all duration-500 relative overflow-hidden group hover:scale-[1.03]"
                 onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
@@ -173,7 +114,7 @@ export function Hero() {
               <MagneticButton 
                 variant="ghost"
                 size="lg"
-                className="text-muted-foreground hover:text-primary px-8 py-6 text-base font-medium
+                className="text-muted-foreground hover:text-primary px-6 py-4 sm:px-8 sm:py-6 text-sm sm:text-base font-medium
                   border border-transparent hover:border-primary/30 transition-all duration-500 hover:scale-[1.03]"
                 onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
               >
@@ -213,28 +154,39 @@ export function Hero() {
               </div>
             </AnimatedItem>
           </motion.div>
+
+          {/* S Emblem Column */}
+          <div className="relative flex flex-col items-center justify-center w-full lg:col-span-5 order-2 z-10 max-w-[260px] sm:max-w-[360px] lg:max-w-[450px] mx-auto pointer-events-none lg:pointer-events-auto">
+            <AnimatedItem delay={0.4} className="relative w-full aspect-square mx-auto pointer-events-auto group">
+              {/* Nebula glow */}
+              <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(168,85,247,0.35)_0%,rgba(168,85,247,0.1)_50%,transparent_75%)] blur-[60px] opacity-50 group-hover:opacity-70 transition-opacity duration-700 pointer-events-none" />
+              <Image
+                src="/sg-3d-emblem.png"
+                alt="Swapnil Gandhale S emblem"
+                width={500}
+                height={500}
+                className="w-full h-full object-contain relative z-10
+                  drop-shadow-[0_0_20px_rgba(168,85,247,0.4)]
+                  group-hover:drop-shadow-[0_0_45px_rgba(168,85,247,0.6)]
+                  transition-all duration-700 ease-out
+                  group-hover:scale-[1.04]"
+                priority
+              />
+            </AnimatedItem>
+
+            {/* Name Label */}
+            <AnimatedItem delay={0.6} className="relative mt-3 group pointer-events-auto transition-all duration-500 hover:translate-y-[-3px]">
+              <h4 className="text-xs sm:text-sm md:text-base font-mono tracking-[0.35em] text-muted-foreground uppercase text-center
+                group-hover:text-primary transition-colors duration-500">
+                Swapnil Gandhale
+              </h4>
+              <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-primary to-transparent mt-1.5
+                scale-x-0 group-hover:scale-x-100 transition-transform duration-700 origin-center" />
+            </AnimatedItem>
+          </div>
         </div>
       </div>
 
-      {/* Scroll indicator */}
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5, duration: 1 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 overflow-hidden"
-      >
-        <div className="flex flex-col items-center gap-2 group cursor-pointer"
-          onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
-        >
-          <span className="text-xs font-mono text-muted-foreground group-hover:text-primary transition-colors">
-            Scroll Down
-          </span>
-          <div className="w-6 h-10 rounded-full border-2 border-muted-foreground/30 group-hover:border-primary/50 
-            flex items-start justify-center p-2 transition-colors duration-300">
-            <div className="w-1 h-2 bg-primary rounded-full animate-bounce" />
-          </div>
-        </div>
-      </motion.div>
     </section>
   )
 }

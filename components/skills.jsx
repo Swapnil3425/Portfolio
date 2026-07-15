@@ -92,7 +92,7 @@ export function Skills() {
   return (
     <section 
       id="skills" 
-      className="py-32 px-6 md:px-12 lg:px-24 bg-card/30 relative overflow-hidden"
+      className="py-32 px-6 md:px-12 lg:px-24 relative overflow-hidden"
     >
       {/* Background decorations */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-[150px] pointer-events-none" />

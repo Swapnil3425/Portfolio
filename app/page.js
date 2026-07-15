@@ -1,35 +1,30 @@
 "use client"
 
-import { Navbar } from "@/components/navbar"
 import { Hero } from "@/components/hero"
 import { About } from "@/components/about"
 import { Projects } from "@/components/projects"
 import { Skills } from "@/components/skills"
 import { Contact } from "@/components/contact"
 import { Footer } from "@/components/footer"
-import { ParticleField } from "@/components/particle-field"
 import { useLoading } from "@/components/LoadingProvider"
 import { Skeleton } from "@/components/Skeleton"
 import { AnimatedSection } from "@/components/AnimatedSection"
 import { AnimatePresence, motion } from "framer-motion"
 
 export default function Home() {
-  const { isLoading, isComplete } = useLoading()
+  const { isLoading } = useLoading()
 
   return (
-    <main className="min-h-screen bg-background relative overflow-hidden">
-      <ParticleField />
-      <Navbar />
-      
-      <AnimatePresence mode="wait">
+    <main className="min-h-screen relative">
+      <AnimatePresence mode="sync">
         {isLoading ? (
-          <motion.div 
+          <motion.div
             key="skeleton"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
-            className="pt-20 px-6 md:px-12 lg:px-24 max-w-7xl mx-auto space-y-32"
+            transition={{ duration: 0.3 }}
+            className="pt-14 px-6 md:px-12 lg:px-24 max-w-7xl mx-auto space-y-32"
           >
             {/* Hero Skeleton */}
             <div className="min-h-[70vh] flex flex-col justify-center space-y-8">
@@ -59,30 +54,30 @@ export default function Home() {
         ) : (
           <motion.div
             key="content"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
           >
             <AnimatedSection>
               <Hero />
             </AnimatedSection>
-            
+
             <AnimatedSection delay={0.2}>
               <About />
             </AnimatedSection>
-            
+
             <AnimatedSection delay={0.3}>
               <Projects />
             </AnimatedSection>
-            
+
             <AnimatedSection delay={0.4}>
               <Skills />
             </AnimatedSection>
-            
+
             <AnimatedSection delay={0.5}>
               <Contact />
             </AnimatedSection>
-            
+
             <Footer />
           </motion.div>
         )}

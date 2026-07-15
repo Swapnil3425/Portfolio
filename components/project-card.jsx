@@ -40,7 +40,7 @@ export function ProjectCard({
         snap-center shrink-0 w-[85vw] md:w-full 
         ${featured ? 'md:col-span-2' : ''}
         transition-all duration-500 ease-out
-        ${isHovered ? 'scale-[1.03] z-20' : 'scale-100 z-10'}
+        ${isHovered ? 'scale-[1.01] z-20' : 'scale-100 z-10'}
       `}
       style={{ 
         animationDelay: `${index * 150}ms`,
@@ -51,21 +51,21 @@ export function ProjectCard({
           group relative overflow-hidden border-border bg-card/50 backdrop-blur-sm
           transition-all duration-700 ease-out h-full
           hover:border-primary/50 
-          ${isHovered ? 'shadow-[0_0_60px_rgba(168,85,247,0.15)]' : ''}
+          ${isHovered ? 'shadow-[0_0_40px_rgba(168,85,247,0.08)]' : ''}
         `}
       >
         {/* Animated gradient border */}
         <div 
           className={`absolute inset-0 transition-opacity duration-700 pointer-events-none rounded-lg ${isHovered ? 'opacity-100' : 'opacity-0'}`}
           style={{
-            background: `radial-gradient(600px circle at ${mousePos.x}px ${mousePos.y}px, rgba(168, 85, 247, 0.15), transparent 40%)`
+            background: `radial-gradient(600px circle at ${mousePos.x}px ${mousePos.y}px, rgba(168, 85, 247, 0.07), transparent 40%)`
           }}
         />
 
         {/* Animated border glow */}
         <div className={`absolute inset-[-1px] rounded-lg transition-opacity duration-500 pointer-events-none overflow-hidden ${isHovered ? 'opacity-100' : 'opacity-0'}`}>
           <div 
-            className={`absolute inset-0 bg-gradient-to-r from-transparent via-primary/30 to-transparent ${isHovered ? 'animate-border-glow' : ''}`}
+            className={`absolute inset-0 bg-gradient-to-r from-transparent via-primary/15 to-transparent ${isHovered ? 'animate-border-glow' : ''}`}
           />
         </div>
 
@@ -146,7 +146,7 @@ export function ProjectCard({
           
           {/* Description */}
           <p className="text-sm md:text-base text-muted-foreground mb-4 md:mb-6 leading-relaxed group-hover:text-muted-foreground/90 
-            transition-colors duration-300 line-clamp-4 md:line-clamp-3">
+            transition-colors duration-300">
             {description}
           </p>
 
