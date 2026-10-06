@@ -8,12 +8,19 @@ import { motion } from "framer-motion"
 
 const projects = [
   {
+    title: "BookBank – Book Management System",
+    description: "Engineered a backend-driven platform to manage book lending and transactions with secure APIs and optimized database queries. Deployed with production-ready configurations and scalable architecture.",
+    tags: ["Node.js", "Express.js", "MongoDB", "JWT"],
+    githubUrl: "https://github.com/Swapnil3425/Book-Bank",
+    liveUrl: "https://book-bank-nu.vercel.app/",
+    featured: true
+  },
+  {
     title: "Saarthi – Real-Time Chat Application",
     description: "Built a real-time chat application enabling instant messaging with WebSocket-based communication. Implemented user authentication, message persistence, and responsive UI for seamless interaction.",
     tags: ["React", "Node.js", "Socket.IO", "MongoDB"],
     githubUrl: "https://github.com/Swapnil3425/Saarthi-The-ChatApp",
-    liveUrl: "https://saarthi-the-chat-app.vercel.app/",
-    featured: true
+    liveUrl: "https://saarthi-the-chat-app.vercel.app/"
   },
   {
     title: "Budgeto – Expense Tracker",
@@ -21,13 +28,6 @@ const projects = [
     tags: ["React", "Node.js", "MongoDB", "Chart.js"],
     githubUrl: "https://github.com/Swapnil3425/Budgeto---Expense-Tracker",
     liveUrl: "https://budgeto-expense-tracker.vercel.app/"
-  },
-  {
-    title: "BookBank – Book Management System",
-    description: "Engineered a backend-driven platform to manage book lending and transactions with secure APIs and optimized database queries. Deployed with production-ready configurations and scalable architecture.",
-    tags: ["Node.js", "Express.js", "MongoDB", "JWT"],
-    githubUrl: "https://github.com/Swapnil3425/Book-Bank",
-    liveUrl: "https://book-bank-nu.vercel.app/" 
   },
   {
     title: "SochAurLikh – Note Taking App",

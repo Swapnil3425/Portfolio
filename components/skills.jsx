@@ -24,7 +24,7 @@ const skillCategories = [
     skills: ["MongoDB", "MySQL"]
   },
   {
-    title: "Data & Analytics",
+    title: "Data & Analytics (Basics)",
     icon: "▦",
     color: "from-emerald-500 to-teal-500",
     skills: ["MS Excel", "MS Office", "Power BI"]
@@ -40,6 +40,12 @@ const skillCategories = [
     icon: "◊",
     color: "from-sky-500 to-indigo-500",
     skills: ["OOP", "SDLC basics"]
+  },
+  {
+    title: "DevOps (Exploring)",
+    icon: "⚙",
+    color: "from-rose-500 to-red-500",
+    skills: ["Docker", "Kubernetes"]
   }
 ]
 
